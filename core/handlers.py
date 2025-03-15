@@ -43,7 +43,10 @@ class DifyAiCardBotHandler(ChatbotHandler):
         # 在企业开发者后台配置的卡片模版id https://open-dev.dingtalk.com/fe/card
         card_template_id = os.getenv("DINGTALK_AI_CARD_TEMPLATE_ID")
         content_key = "content"
-        card_data = {content_key: ""}
+        card_data = { "config": {
+                            "autoLayout": True  # 启用宽屏模式
+                                },
+                     content_key: ""}
         card_instance = AICardReplier(self.dingtalk_client, incoming_message)
         # 先投放卡片
         card_instance_id = card_instance.create_and_send_card(card_template_id, card_data, callback_type="STREAM")
